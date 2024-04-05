@@ -3,16 +3,16 @@ from datetime import datetime
 from sqlalchemy import String, ForeignKey, JSON
 from sqlalchemy.orm import Mapped, mapped_column
 
-from database import Base
+from database import Base, CreatedAt, UpdatedAt
 
-class Role(Base):
+class Role(Base, CreatedAt, UpdatedAt):
     __tablename__ = "role"
 
     id:              Mapped[int]        = mapped_column(primary_key=True)
     name:            Mapped[str]        = mapped_column()
     permissions:     Mapped[str | None] = mapped_column(JSON)
 
-class User(Base):
+class User(Base, UpdatedAt):
     __tablename__ = "user"
 
     id:              Mapped[int]        = mapped_column(primary_key=True)

@@ -1,6 +1,9 @@
+from app import app
+
 from auth.router import register_router, auth_router
 from operations.router import router as operations_router
-from app import app
+
+from admin_panel import admin
 
 def register_all_routers() -> None:
     app.include_router(

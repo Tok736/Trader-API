@@ -3,6 +3,7 @@ from typing import AsyncGenerator
 from fastapi import APIRouter, Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi_cache.decorator import cache
 
 from database import get_async_session
 from exceptions import UserNotFound
@@ -11,13 +12,13 @@ from paginator import Paginator
 from .models import User
 from .schemas import UserRead
 
-
 router = APIRouter(
     prefix="/users",
     tags=["users"]
 )
 
 @router.get("/")
+@cache(expire=60)
 async def get_users(
     paginator: Paginator = Depends(),
     session: AsyncGenerator[AsyncSession, None] = Depends(get_async_session)

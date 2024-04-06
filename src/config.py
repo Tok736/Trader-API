@@ -10,9 +10,15 @@ class Settings(BaseSettings):
     db_port: str
     db_name: str
 
-    jwt_secret_key: str
+    jwt_secret_key:   str
     jwt_lifetime_sec: int
-    auth_secret_key: str
+    auth_secret_key:  str
+
+    redis_host: str
+    redis_port: str
+
+    mail:          str
+    mail_password: str
 
     @property
     def sqlalchemy_url(self) -> str:

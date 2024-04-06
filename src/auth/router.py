@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi_users import FastAPIUsers
 
+from app import app
+
 from .auth import auth_backend
 from .manager import get_user_manager
 from .dependencies import UserRead, UserCreate, UserUpdate, User
-
-from app import app
 
 fastapi_users = FastAPIUsers[User, int](
     get_user_manager,
@@ -13,5 +13,9 @@ fastapi_users = FastAPIUsers[User, int](
 )
 
 auth_router = fastapi_users.get_auth_router(auth_backend)
-register_router = fastapi_users.get_register_router(UserRead, UserCreate)
+auth_router.prefix = "/auth/jwt"
+auth_router.tags = ["auth"]
 
+register_router = fastapi_users.get_register_router(UserRead, UserCreate)
+register_router.prefix = "/auth"
+register_router.tags = ["auth"]

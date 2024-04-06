@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import EmailStr
 
 from fastapi_users.schemas import BaseUser, BaseUserCreate, BaseUserUpdate
@@ -10,9 +12,11 @@ class UserRead(BaseUser):
     is_active:    bool = True
     is_superuser: bool = False
     is_verified:  bool = False
+    updated_at:   datetime
 
     class Config:
         from_attributes = True
+
 
 class UserCreate(BaseUserCreate):
     email:        EmailStr
@@ -22,6 +26,8 @@ class UserCreate(BaseUserCreate):
     is_active:    bool | None = True
     is_superuser: bool | None = False
     is_verified:  bool | None = False
+    updated_at:   datetime
+
 
 class UserUpdate(BaseUserUpdate):
     password:     str | None = None
@@ -31,5 +37,7 @@ class UserUpdate(BaseUserUpdate):
     is_active:    bool | None = None
     is_superuser: bool | None = None
     is_verified:  bool | None = None
+    updated_at:   datetime
+
 
 

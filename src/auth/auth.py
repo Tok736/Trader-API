@@ -1,8 +1,4 @@
-from fastapi_users.authentication import (
-    CookieTransport, 
-    JWTStrategy,
-    AuthenticationBackend
-)
+from fastapi_users.authentication import CookieTransport, JWTStrategy, AuthenticationBackend
 
 from config import settings
 

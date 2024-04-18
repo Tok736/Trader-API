@@ -1,16 +1,6 @@
-from fastapi import FastAPI
-from fastapi_users import FastAPIUsers
-
-from app import app
-
 from .auth import auth_backend
-from .manager import get_user_manager
-from .dependencies import UserRead, UserCreate, UserUpdate, User
-
-fastapi_users = FastAPIUsers[User, int](
-    get_user_manager,
-    [auth_backend]
-)
+from .dependencies import UserRead, UserCreate
+from .manager import fastapi_users
 
 auth_router = fastapi_users.get_auth_router(auth_backend)
 auth_router.prefix = "/auth/jwt"

@@ -37,14 +37,3 @@ async def add_operation(
 
     return {"operation_id": result.inserted_primary_key[0]}
 
-
-from time import sleep
-@router.get("/calc")
-@cache(expire=60)
-async def big_calculations(
-    calc_time: int,
-):
-    ''' Long long calculations '''
-    sleep(calc_time)
-    
-    return {"result": "calculations are completed"}

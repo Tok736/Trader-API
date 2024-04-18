@@ -3,10 +3,8 @@ from datetime import datetime
 from pydantic import BaseModel
 
 class OperationSchemaRead(BaseModel):
-    __tablename__ = "operation"
-
     id:               int        
-    quantinity:       int        
+    quantity:         int        
     figi:             str        
     instrument_type:  str | None
     date:             datetime  
@@ -15,9 +13,7 @@ class OperationSchemaRead(BaseModel):
     updated_at:       datetime
     
 class OperationSchemaCreate(BaseModel):
-    __tablename__ = "operation"
-
-    quantinity:       int        
+    quantity:         int        
     figi:             str        
     instrument_type:  str | None
     date:             datetime  

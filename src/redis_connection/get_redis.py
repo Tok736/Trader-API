@@ -9,7 +9,7 @@ from config import settings
 
 def get_redis() -> Redis:
     ''' Connection to redis '''
-    redis = aioredis.from_url(f"redis://{settings.redis_host}:{settings.redis_port}", decode_responses=False)
+    redis = aioredis.from_url(settings.redis_url, decode_responses=False)
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
     return redis
 

@@ -1,11 +1,41 @@
+from fastapi import Request
 from sqladmin import Admin, ModelView
+from sqladmin.authentication import AuthenticationBackend
+from starlette.responses import Response
 
 from app import app
 from database import engine
+from config import settings
 
 from .dependencies import User, Role, Operation
 
-admin = Admin(app, engine)
+class AdminAuth(AuthenticationBackend):
+    async def login(self, request: Request) -> bool:
+        ''' Login to admin panel '''
+        form = await request.form()
+        username, password = form["username"], form["password"]
+
+        if username == settings.sqladmin_login and password == settings.sqladmin_password:
+            request.session.update({"token": "1234"})
+            return True
+        
+        return False
+
+    async def logout(self, request: Request) -> bool:
+        ''' Logout from admin panel '''
+        request.session.clear()
+
+    async def authenticate(self, request: Request) -> bool:
+        token = request.session.get("token")
+
+        if not token or token != "1234":
+            return False
+
+        return True
+
+authentication_backend = AdminAuth(secret_key=settings.auth_secret_key)
+
+admin = Admin(app, engine, authentication_backend=authentication_backend)
 
 class RoleModelView(ModelView, model=Role):
     column_list = [
@@ -22,7 +52,7 @@ class RoleModelView(ModelView, model=Role):
 class OperationModelView(ModelView, model=Operation):
     column_list = [
         Operation.id, 
-        Operation.quantinity,
+        Operation.quantity,
         Operation.figi, 
         Operation.instrument_type, 
         Operation.date,

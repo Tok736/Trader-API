@@ -8,7 +8,7 @@ class Operation(Base, CreatedAt, UpdatedAt):
     __tablename__ = "operation"
 
     id:               Mapped[int]        = mapped_column(primary_key=True)
-    quantinity:       Mapped[int]        = mapped_column()
+    quantity:         Mapped[int]        = mapped_column()
     figi:             Mapped[str]        = mapped_column()
     instrument_type:  Mapped[str | None] = mapped_column(index=True)
     date:             Mapped[datetime]   = mapped_column(index=True)

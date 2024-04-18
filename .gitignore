@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# List of commands to run app
+.commands
+
 # C extensions
 *.so
 

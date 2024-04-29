@@ -1,0 +1,22 @@
+{
+    "default_roles": [
+        {
+            "name": "admin",
+            "permissions": {
+                "can_delete_any_operation": true
+            }
+        },
+        {
+            "name": "moderator",
+            "permissions": {
+                "can_delete_any_operation": false
+            }
+        },
+        {
+            "name": "user",
+            "permissions": {
+                "can_delete_any_operation": false
+            }
+        }
+    ]
+}

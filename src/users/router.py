@@ -21,7 +21,7 @@ router = APIRouter(
 @cache(expire=60)
 async def get_users(
     paginator: Paginator = Depends(),
-    session: AsyncGenerator[AsyncSession, None] = Depends(get_async_session)
+    session:   AsyncGenerator[AsyncSession, None] = Depends(get_async_session)
 ) -> list[UserRead]:
     ''' Endpoint to get all users from database with pagination '''
     statement = paginator(select(User))

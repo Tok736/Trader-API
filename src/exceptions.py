@@ -7,3 +7,5 @@ class UserNotFound(HTTPException):
             detail:      str = "User not found", 
         ) -> None:
         super().__init__(status_code, detail)
+
+

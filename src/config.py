@@ -1,7 +1,9 @@
+from json import load
+
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    ''' App config '''
+    ''' App config from .env file '''
     pythonpath: str
 
     db_user: str
@@ -37,4 +39,17 @@ class Settings(BaseSettings):
     class Config:
         env_file = "../.env"
 
-settings = Settings()
+class JsonSettings:
+    ''' Class representing 'config.json' file '''
+
+    def __init__(self, file_path="../config.json") -> None:
+        self.file = open(file_path)
+        self.json_data = load(self.file)
+
+    def __getitem__(self, key: str):
+        return self.json_data[key]
+
+settings      = Settings()
+json_settings = JsonSettings()
+
+print(json_settings)
